@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Quiz App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            {% if 'user_id' not in session %}
+                <a href="/register">Register</a>
+                <a href="/login">Login</a>
+            {% else %}
+                <a href="/quiz">Quiz</a>
+                <a href="/leaderboard">Leaderboard</a>
+                <a href="/logout">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        <h1>Welcome to the Quiz App!</h1>
+        <form method="get" action="/">
+            <label for="city">Enter City:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+        <section>
+            <h2>Weather Forecast for {{ city }}</h2>
+            {% if weather_data %}
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day Temperature</th>
+                        <th>Night Temperature</th>
+                    </tr>
+                    {% for day in weather_data %}
+                    <tr>
+                        <td>{{ day.date }}</td>
+                        <td>{{ day.temp_day }}°C</td>
+                        <td>{{ day.temp_night }}°C</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>No weather data available.</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p>Developed by Angela Rossi</p>
+    </footer>
+</body>
+</html>
